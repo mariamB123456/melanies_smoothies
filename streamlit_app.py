@@ -2,6 +2,7 @@
 import streamlit as st
 from snowflake.snowpark.functions import col #import a function from snowpark to show one column instead of the whole table
 import requests # this a Python package library called requests.  The requests library allows us to build and sent REST API calls
+import pandas  as pd
 #----------------------
 st.title(f" :cup_with_straw: Customize your smoothie! :cup_with_straw: ")
 st.write(  """Choose the fruits you want in your custom smoothie !  """)
