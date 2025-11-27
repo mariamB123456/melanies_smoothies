@@ -50,3 +50,8 @@ if ingredients_list: #means if this list is not null
         session.sql(my_insert_stmt).collect() #execute this code
             
         st.success('Your Smoothie is ordered!', icon="✅") #show up that it's successfully ordered
+
+#New section to import smoothie fruit information
+import requests # this a Python package library called requests.  The requests library allows us to build and sent REST API calls
+smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/watermelon")
+st.text(smoothiefroot_response)
