@@ -30,26 +30,12 @@ if ingredients_list:
         smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/" + fruit_chosen)
         sf_df = st.dataframe(data=smoothiefroot_response.json(),use_container_width=True)  
     
-    #st.write(ingredients_list) #show finale selection into [] and with ID
-    #insert into table (SQL code)
-    #my_insert_stmt = """ insert into smoothies.public.orders(ingredients) 
-    #        values ('""" + ingredients_string + """')"""
-
     my_insert_stmt = """ insert into smoothies.public.orders(ingredients,name_on_order) 
             values ('""" + ingredients_string + """','""" + name_on_order + """')"""
-    #st.write(my_insert_stmt)
-    #st.stop()
-    #Code below to insert into the table for every selection :
-    # if ingredients_string:  #if the ingredient list is not null then do the below
-    #    session.sql(my_insert_stmt).collect() #execute this code
-    #    st.success('Your Smoothie is ordered!', icon="✅") #show up that it's successfully ordered
-    ###############################
     
     time_to_insert = st.button('submit order')
-    
     if time_to_insert:
-        session.sql(my_insert_stmt).collect() #execute this code
-            
+        session.sql(my_insert_stmt).collect() #execute this code       
         st.success('Your Smoothie is ordered!', icon="✅") #show up that it's successfully ordered
 
 
