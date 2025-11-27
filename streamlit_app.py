@@ -1,6 +1,7 @@
 # Import python packages
 import streamlit as st
 from snowflake.snowpark.functions import col #import a function from snowpark to show one column instead of the whole table
+import requests # this a Python package library called requests.  The requests library allows us to build and sent REST API calls
 #----------------------
 # Write directly to the app
 st.title(f" :cup_with_straw: Customize your smoothie! :cup_with_straw: ")
@@ -20,16 +21,15 @@ ingredients_list = st.multiselect (
     ,max_selections=5
 )
 #---------------------
-if ingredients_list: #means if this list is not null
-    #st.write(ingredients_list) #show selection into [] and with ID
-    #st.text(ingredients_list) #show selection into []
-    ingredients_string = '' #convert LIST variable to string
+if ingredients_list: 
+    ingredients_string = ''
 
     for fruit_chosen in ingredients_list: #for every fruit in the ingredients list
         ingredients_string += fruit_chosen + ' ' #add every selection to the string
+        smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/watermelon")
+        sf_df = st.dataframe(data=smoothiefroot_response.json(),use_container_width=True)  
     
     #st.write(ingredients_list) #show finale selection into [] and with ID
-
     #insert into table (SQL code)
     #my_insert_stmt = """ insert into smoothies.public.orders(ingredients) 
     #        values ('""" + ingredients_string + """')"""
@@ -51,8 +51,4 @@ if ingredients_list: #means if this list is not null
             
         st.success('Your Smoothie is ordered!', icon="✅") #show up that it's successfully ordered
 
-#New section to import smoothie fruit information
-import requests # this a Python package library called requests.  The requests library allows us to build and sent REST API calls
-smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/watermelon")
-#st.text(smoothiefroot_response.json())
-sf_df = st.dataframe(data=smoothiefroot_response.json(),use_container_width=True)
+
